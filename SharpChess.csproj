@@ -71,6 +71,14 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="King.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bishop.cs" />
+    <Compile Include="Rook.cs" />
+    <Compile Include="Pawn.cs" />
+    <Compile Include="Knight.cs" />
+    <Compile Include="Queen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -80,77 +88,17 @@
     <Folder Include="Assets\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Figurines\Black B.ico" />
-    <Content Include="Assets\Figurines\Black B.png" />
-    <Content Include="Assets\Figurines\Black K.ico" />
-    <Content Include="Assets\Figurines\Black K.png" />
-    <Content Include="Assets\Figurines\Black N.ico" />
-    <Content Include="Assets\Figurines\Black N.png" />
-    <Content Include="Assets\Figurines\Black P.ico" />
-    <Content Include="Assets\Figurines\Black P.png" />
-    <Content Include="Assets\Figurines\Black Q.ico" />
-    <Content Include="Assets\Figurines\Black Q.png" />
-    <Content Include="Assets\Figurines\Black R.ico" />
-    <Content Include="Assets\Figurines\Black R.png" />
-    <Content Include="Assets\Figurines\Blue B.ico" />
-    <Content Include="Assets\Figurines\Blue B.png" />
-    <Content Include="Assets\Figurines\Blue K.ico" />
-    <Content Include="Assets\Figurines\Blue K.png" />
-    <Content Include="Assets\Figurines\Blue N.ico" />
-    <Content Include="Assets\Figurines\Blue N.png" />
-    <Content Include="Assets\Figurines\Blue P.ico" />
-    <Content Include="Assets\Figurines\Blue P.png" />
-    <Content Include="Assets\Figurines\Blue Q.ico" />
-    <Content Include="Assets\Figurines\Blue Q.png" />
-    <Content Include="Assets\Figurines\Blue R.ico" />
-    <Content Include="Assets\Figurines\Blue R.png" />
-    <Content Include="Assets\Figurines\Brown B.ico" />
-    <Content Include="Assets\Figurines\Brown B.png" />
-    <Content Include="Assets\Figurines\Brown K.ico" />
-    <Content Include="Assets\Figurines\Brown K.png" />
-    <Content Include="Assets\Figurines\Brown N.ico" />
-    <Content Include="Assets\Figurines\Brown N.png" />
-    <Content Include="Assets\Figurines\Brown P.ico" />
-    <Content Include="Assets\Figurines\Brown P.png" />
-    <Content Include="Assets\Figurines\Brown Q.ico" />
-    <Content Include="Assets\Figurines\Brown Q.png" />
-    <Content Include="Assets\Figurines\Brown R.ico" />
-    <Content Include="Assets\Figurines\Brown R.png" />
-    <Content Include="Assets\Figurines\Clear white B.ico" />
-    <Content Include="Assets\Figurines\Clear white B.png" />
-    <Content Include="Assets\Figurines\Clear white K.ico" />
-    <Content Include="Assets\Figurines\Clear white K.png" />
-    <Content Include="Assets\Figurines\Clear white N.ico" />
-    <Content Include="Assets\Figurines\Clear white N.png" />
-    <Content Include="Assets\Figurines\Clear white P.ico" />
-    <Content Include="Assets\Figurines\Clear white P.png" />
-    <Content Include="Assets\Figurines\Clear white Q.ico" />
-    <Content Include="Assets\Figurines\Clear white Q.png" />
-    <Content Include="Assets\Figurines\Clear white R.ico" />
-    <Content Include="Assets\Figurines\Clear white R.png" />
-    <Content Include="Assets\Figurines\White B.ico" />
-    <Content Include="Assets\Figurines\White B.png" />
-    <Content Include="Assets\Figurines\White K.ico" />
-    <Content Include="Assets\Figurines\White K.png" />
-    <Content Include="Assets\Figurines\White N.ico" />
-    <Content Include="Assets\Figurines\White N.png" />
-    <Content Include="Assets\Figurines\White P.ico" />
-    <Content Include="Assets\Figurines\White P.png" />
-    <Content Include="Assets\Figurines\White Q.ico" />
-    <Content Include="Assets\Figurines\White Q.png" />
-    <Content Include="Assets\Figurines\White R.ico" />
-    <Content Include="Assets\Figurines\White R.png" />
-    <Content Include="Assets\Figurines\Yellow B.ico" />
-    <Content Include="Assets\Figurines\Yellow B.png" />
-    <Content Include="Assets\Figurines\Yellow K.ico" />
-    <Content Include="Assets\Figurines\Yellow K.png" />
-    <Content Include="Assets\Figurines\Yellow N.ico" />
-    <Content Include="Assets\Figurines\Yellow N.png" />
-    <Content Include="Assets\Figurines\Yellow P.ico" />
-    <Content Include="Assets\Figurines\Yellow P.png" />
-    <Content Include="Assets\Figurines\Yellow Q.ico" />
-    <Content Include="Assets\Figurines\Yellow Q.png" />
-    <Content Include="Assets\Figurines\Yellow R.ico" />
-    <Content Include="Assets\Figurines\Yellow R.png" />
+    <Content Include="Assets\bishop-black-32.png" />
+    <Content Include="Assets\bishop-white-32.png" />
+    <Content Include="Assets\king-black-32.png" />
+    <Content Include="Assets\king-white-32.png" />
+    <Content Include="Assets\knight-black-32.png" />
+    <Content Include="Assets\knight-white-32.png" />
+    <Content Include="Assets\pawn-black-32.png" />
+    <Content Include="Assets\pawn-white-32.png" />
+    <Content Include="Assets\queen-black-32.png" />
+    <Content Include="Assets\queen-white-32.png" />
+    <Content Include="Assets\rook-black-32.png" />
+    <Content Include="Assets\rook-white-32.png" />
   </ItemGroup>
 </Project>

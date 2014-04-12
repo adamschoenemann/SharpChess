@@ -2,7 +2,7 @@ using System;
 using Gtk;
 using Cairo;
 
-namespace Chess
+namespace SharpChess
 {
 	public class Tile : DrawingArea
 	{
@@ -38,6 +38,12 @@ namespace Chess
 			}
 		}
 
+		public bool Selected
+		{
+			get;
+			set;
+		}
+
 		public Tile(Color color, double width, double height)
 		{
 			this.Color = color;
@@ -55,12 +61,26 @@ namespace Chess
 
 			using (Context ctx = Gdk.CairoHelper.Create((evnt.Window)))
 			{
-				ctx.SetSourceRGBA(Color.R, Color.B, Color.G, Color.A);
-				//ctx.Rectangle(new Rectangle(0, 0, WidthRequest, HeightRequest));
+				if (Selected)
+				{
+					ctx.SetSourceRGBA(0.2, 0.2, 0.8, 1.0);
+				}
+				else
+				{
+					ctx.SetSourceRGBA(Color.R, Color.B, Color.G, Color.A);
+				}
+				ctx.Rectangle(new Rectangle(0, 0, WidthRequest, HeightRequest));
 				ctx.Rectangle(new Rectangle(0, 0, a.Width, a.Height));
 
 				ctx.Fill();
+				if (Piece != null)
+				{
+					ctx.Save();
+					Piece.Draw(ctx, a);
+					ctx.Restore();
+				}
 			}
+
 			return base.OnExposeEvent(evnt);
 		}
 

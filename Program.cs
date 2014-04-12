@@ -1,16 +1,16 @@
 using System;
 using Gtk;
 
-namespace Chess
+namespace SharpChess
 {
-    class MainClass
-    {
-        public static void Main(string[] args)
-        {
-            Application.Init();
-            MainWindow win = new MainWindow();
-            win.Show();
-            Application.Run();
-        }
-    }
+	class MainClass
+	{
+		public static void Main(string[] args)
+		{
+			Application.Init();
+			MainWindow win = MainWindow.Instance;
+			win.Show();
+			Application.Run();
+		}
+	}
 }

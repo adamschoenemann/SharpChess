@@ -1,18 +1,33 @@
 using System;
 using Gtk;
-using Chess;
+using SharpChess;
 
 public partial class MainWindow: Gtk.Window
 {
-	public MainWindow() : base(Gtk.WindowType.Toplevel)
+	private static MainWindow instance;
+
+	public static MainWindow Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new MainWindow();
+			}
+			return instance;
+		}
+	}
+
+	private MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
 		ChessBoard board = new ChessBoard();
+		this.SetSizeRequest(300, 300);
 		board.SetSizeRequest(300, 300);
 		board.Initialize();
 		this.Add(board);
 
 		Build();
-		this.SetSizeRequest(300, 300);
+
 		this.Resizable = false;
 	}
 

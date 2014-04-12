@@ -1,6 +1,6 @@
 using System;
 
-namespace Chess
+namespace SharpChess
 {
 	public static class ExtensionMethods
 	{

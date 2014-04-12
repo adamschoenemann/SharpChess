@@ -2,7 +2,7 @@ using System;
 using Gtk;
 using Cairo;
 
-namespace Chess
+namespace SharpChess
 {
 	public enum PlayerType
 	{
@@ -26,14 +26,20 @@ namespace Chess
 			this.Type = type;
 		}
 
-		public bool IsWhite()
+		public bool IsWhite
 		{
-			return (Type == PlayerType.White);
+			get
+			{
+				return (Type == PlayerType.White);
+			}
 		}
 
-		public bool IsBlack()
+		public bool IsBlack
 		{
-			return (Type == PlayerType.Black);
+			get
+			{
+				return (Type == PlayerType.Black);
+			}
 		}
 	}
 }
