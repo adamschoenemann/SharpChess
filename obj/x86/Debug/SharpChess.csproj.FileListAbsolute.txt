@@ -1,0 +1,5 @@
+F:\Projects\Mono\SharpChess\obj\x86\Debug\SharpChess.csprojResolveAssemblyReference.cache
+F:\Projects\Mono\SharpChess\bin\Debug\SharpChess.exe
+F:\Projects\Mono\SharpChess\bin\Debug\SharpChess.pdb
+F:\Projects\Mono\SharpChess\obj\x86\Debug\SharpChess.exe
+F:\Projects\Mono\SharpChess\obj\x86\Debug\SharpChess.pdb
