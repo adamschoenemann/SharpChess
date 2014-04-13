@@ -19,26 +19,19 @@ namespace SharpChess
 	public class ChessBoard : Fixed
 	{
 		private Tile[,] tiles;
-		private Player[] players;
 		private BoardIndex selected;
+		public readonly ChessGame Game;
 
-		public Player ActivePlayer
-		{
-			get;
-			private set;
-		}
-
-		public ChessBoard()
+		public ChessBoard(ChessGame game)
 		{
 			tiles = new Tile[8, 8];
 			selected = null;
-			players = new Player[2]
-			{ 
-				new Player(PlayerType.White, new Color(1, 1, 1)),
-				new Player(PlayerType.Black, new Color(0, 0, 0))
-			};
+			Game = game;
+		}
 
-
+		internal void PutPiece(int row, int col, ChessPiece piece)
+		{
+			tiles[row, col].Piece = piece;
 		}
 
 		public void Initialize()
@@ -51,7 +44,7 @@ namespace SharpChess
 					double color = (y + x) % 2 == 0 ? 0.8 : 0.2;
 					int w = (this.WidthRequest / 8.0).RoundToInt();
 					int h = (this.HeightRequest / 8.0).RoundToInt();
-					tiles[y, x] = new Tile(new Color(color, color, color), w, h);
+					tiles[y, x] = new Tile(new Color(color, color, color));
 					tiles[y, x].SetSizeRequest(w, h);
 					tiles[y, x].ButtonPressEvent += (object o, ButtonPressEventArgs args) =>
 					{
@@ -76,40 +69,7 @@ namespace SharpChess
 				}
 			}
 
-			ActivePlayer = players[0];
-			SetupGame();
-		}
-
-		private void SetupGame()
-		{
-			// pawns
-			for (int i = 0; i < 8; i++)
-			{
-				tiles[1, i].Piece = new Pawn(players[1]);
-				tiles[6, i].Piece = new Pawn(players[0]);
-			}
-
-			// the rest
-			tiles[0, 0].Piece = new Rook(players[1]);
-			tiles[0, 1].Piece = new Knight(players[1]);
-			tiles[0, 2].Piece = new Bishop(players[1]);
-			tiles[0, 3].Piece = new King(players[1]);
-			tiles[0, 4].Piece = new Queen(players[1]);
-			tiles[0, 5].Piece = new Bishop(players[1]);
-			tiles[0, 6].Piece = new Knight(players[1]);
-			tiles[0, 7].Piece = new Rook(players[1]);
-
-			tiles[7, 0].Piece = new Rook(players[0]);
-			tiles[7, 1].Piece = new Knight(players[0]);
-			tiles[7, 2].Piece = new Bishop(players[0]);
-			tiles[7, 3].Piece = new King(players[0]);
-			tiles[7, 4].Piece = new Queen(players[0]);
-			tiles[7, 5].Piece = new Bishop(players[0]);
-			tiles[7, 6].Piece = new Knight(players[0]);
-			tiles[7, 7].Piece = new Rook(players[0]);
-
-
-
+			Game.SetupGame();
 		}
 
 		public bool Move(BoardIndex from, BoardIndex to)
@@ -132,13 +92,30 @@ namespace SharpChess
 			}
 			ChessPiece piece = tiles[fromRow, fromCol].Piece;
 			// Check if we're trying to move a piece that is not "ours"
-			if (piece.Player != ActivePlayer)
+			if (piece.Player != Game.ActivePlayer)
 			{
 				Console.WriteLine("It is not your turn");
 				return false;
 			}
+
+			ChessPiece target = tiles[toRow, toCol].Piece;
+			// You cant move on top of your own pieces
+			if (target != null && target.Player == piece.Player)
+			{
+				Console.WriteLine("You cant move on top of your own piece");
+				return false;
+			}
+
+			// Test if the path is clear
+			int rows = toRow - fromRow, cols = toCol - fromCol;
+			if (IsPathClear(fromRow, fromCol, toRow, toCol) == false)
+			{
+				Console.WriteLine("Path is not clear for that move");
+				return false;
+			}
+
 			// Test if the piece can do the move
-			if (piece.CanMove(toRow - fromRow, toCol - fromCol, tiles[toRow, toCol]) == false)
+			if (piece.CanMove(rows, cols, tiles[toRow, toCol]) == false)
 			{
 				Console.WriteLine("Illegal move for this piece");
 				return false;
@@ -146,7 +123,7 @@ namespace SharpChess
 			// If there is a piece where we will move, it should die
 			if (tiles[toRow, toCol].IsEmpty == false)
 			{
-				tiles[toRow, toCol].Piece.Die();
+				tiles[toRow, toCol].Piece.OnTaken();
 			}
 			Console.WriteLine("Moving pieces");
 			// Move the piece
@@ -155,15 +132,47 @@ namespace SharpChess
 			tiles[fromRow, fromCol].Piece = null;
 
 			piece.SendMoveEvent(this, new PieceMoveEventArgs(fromRow, fromCol, toRow, toCol));
+			Game.OnMove();
 
-			SwitchPlayer();
 			return true; 
 
 		}
 
-		private void SwitchPlayer()
+		private bool IsPathClear(int fromRow, int fromCol, int toRow, int toCol)
 		{
-			ActivePlayer = (ActivePlayer == players[0]) ? players[1] : players[0];
+			int rows = toRow - fromRow, cols = toCol - fromCol;
+			int pieces = 0;
+			if (Math.Abs(rows) == Math.Abs(cols)) // diagonal move
+			{
+				for (int r = fromRow, c = fromCol;
+					 r < toRow && c < toCol;
+					 r += Math.Sign(rows), c += Math.Sign(cols))
+				{
+					if (tiles[r, c].IsEmpty == false)
+						pieces++;
+				}
+				return (pieces <= 1);
+			}
+			if ((rows == 0 && Math.Abs(cols) > 0)) // straight move right/left
+			{
+				for (int c = 0; c < Math.Abs(cols); c++)
+				{
+					if (tiles[fromRow, fromCol + c * Math.Abs(cols)].IsEmpty == false)
+						pieces++;
+				}
+				return (pieces <= 1);
+			}
+			if (cols == 0 && Math.Abs(rows) > 0) // straight move up/down
+			{
+				for (int r = 0; r < Math.Abs(rows); r++)
+				{
+					if (tiles[fromRow + r * Math.Sign(rows), fromCol].IsEmpty == false)
+						pieces++;
+				}
+				return (pieces <= 1);
+			}
+			// Probably moving a knight
+			return true;
 		}
 
 		protected override bool OnExposeEvent(Gdk.EventExpose evnt)

@@ -49,11 +49,6 @@ namespace SharpChess
 			}
 		}
 
-		public override void Die()
-		{
-			throw new NotImplementedException();
-		}
-
 		#endregion
 
 	}

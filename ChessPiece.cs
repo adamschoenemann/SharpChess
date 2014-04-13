@@ -36,7 +36,10 @@ namespace SharpChess
 
 		public abstract bool CanMove(int rows, int cols, Tile tile);
 
-		public abstract void Die();
+		public virtual void OnTaken()
+		{
+			Player.OnPieceTaken(this);
+		}
 
 		public event EventHandler<PieceMoveEventArgs> MoveEvent;
 

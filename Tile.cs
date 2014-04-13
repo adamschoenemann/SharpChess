@@ -12,18 +12,6 @@ namespace SharpChess
 			set;
 		}
 
-		double Width
-		{
-			get;
-			set;
-		}
-
-		double Height
-		{
-			get;
-			set;
-		}
-
 		public ChessPiece Piece
 		{
 			internal set;
@@ -44,11 +32,9 @@ namespace SharpChess
 			set;
 		}
 
-		public Tile(Color color, double width, double height)
+		public Tile(Color color)
 		{
 			this.Color = color;
-			this.Width = width;
-			this.Height = height;
 			this.AddEvents((int)Gdk.EventMask.ButtonPressMask);
 		}
 

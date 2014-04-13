@@ -11,14 +11,13 @@ namespace SharpChess
 
 		#region implemented abstract members of ChessPiece
 
-		public override bool CanMove(int x, int y, Tile tile)
+		public override bool CanMove(int rows, int cols, Tile tile)
 		{
-			throw new NotImplementedException();
-		}
-
-		public override void Die()
-		{
-			throw new NotImplementedException();
+			if (Math.Abs(rows) == 2 && Math.Abs(cols) == 1)
+				return true;
+			if (Math.Abs(cols) == 2 && Math.Abs(rows) == 1)
+				return true;
+			return false;
 		}
 
 		#endregion

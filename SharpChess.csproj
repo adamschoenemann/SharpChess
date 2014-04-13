@@ -79,6 +79,7 @@
     <Compile Include="Pawn.cs" />
     <Compile Include="Knight.cs" />
     <Compile Include="Queen.cs" />
+    <Compile Include="ChessGame.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

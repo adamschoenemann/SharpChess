@@ -1,6 +1,7 @@
 using System;
 using Gtk;
 using SharpChess;
+using Cairo;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -20,7 +21,12 @@ public partial class MainWindow: Gtk.Window
 
 	private MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
-		ChessBoard board = new ChessBoard();
+		ChessGame game = new ChessGame(
+			                 new Player(PlayerType.White, new Color(1, 1, 1)),
+			                 new Player(PlayerType.Black, new Color(0, 0, 0))
+		                 );
+
+		ChessBoard board = game.Board;
 		this.SetSizeRequest(300, 300);
 		board.SetSizeRequest(300, 300);
 		board.Initialize();

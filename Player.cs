@@ -18,12 +18,20 @@ namespace SharpChess
 			private set;
 		}
 
+		public int Pieces
+		{
+			get;
+			private set;
+		}
+
 		public readonly PlayerType Type;
+		internal ChessGame game;
 
 		public Player(PlayerType type, Color color)
 		{
 			this.Color = color;
 			this.Type = type;
+			this.Pieces = 16;
 		}
 
 		public bool IsWhite
@@ -39,6 +47,21 @@ namespace SharpChess
 			get
 			{
 				return (Type == PlayerType.Black);
+			}
+		}
+
+		public void OnPieceTaken(ChessPiece chessPiece)
+		{
+			Pieces--;
+			Console.WriteLine("Piece taken from " + Type.ToString() + " player");
+			if (chessPiece is Pawn)
+			{
+				Console.WriteLine("Ohh, it was just a pawn");
+			}
+			else if (chessPiece is King)
+			{
+				Console.WriteLine("Damn, we lost");
+				game.Lose(this);
 			}
 		}
 	}
