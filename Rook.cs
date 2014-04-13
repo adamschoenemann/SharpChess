@@ -13,7 +13,15 @@ namespace SharpChess
 
 		public override bool CanMove(int x, int y, Tile tile)
 		{
-			throw new NotImplementedException();
+			if (x == 0 && y != 0)
+			{
+				return true;
+			}
+			if (y == 0 && x != 0)
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public override void Die()

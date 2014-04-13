@@ -4,6 +4,23 @@ using Cairo;
 
 namespace SharpChess
 {
+	public class PieceMoveEventArgs : EventArgs
+	{
+		public readonly BoardIndex Prev, New;
+
+		public PieceMoveEventArgs(BoardIndex p, BoardIndex n)
+		{
+			Prev = p;
+			New = n;
+		}
+
+		public PieceMoveEventArgs(int fromRow, int fromCol, int toRow, int toCol)
+			: this(new BoardIndex(fromRow, fromCol), new BoardIndex(toRow, toCol))
+		{
+
+		}
+	}
+
 	public abstract class ChessPiece
 	{
 		public Player Player
@@ -17,9 +34,19 @@ namespace SharpChess
 			this.Player = player;
 		}
 
-		public abstract bool CanMove(int x, int y, Tile tile);
+		public abstract bool CanMove(int rows, int cols, Tile tile);
 
 		public abstract void Die();
+
+		public event EventHandler<PieceMoveEventArgs> MoveEvent;
+
+		public void SendMoveEvent(object sender, PieceMoveEventArgs args)
+		{
+			if (MoveEvent != null)
+			{
+				MoveEvent(sender, args);
+			}
+		}
 
 		public virtual void Draw(Context ctx, Gdk.Rectangle area)
 		{

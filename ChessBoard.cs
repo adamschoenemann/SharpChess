@@ -56,6 +56,7 @@ namespace SharpChess
 					tiles[y, x].ButtonPressEvent += (object o, ButtonPressEventArgs args) =>
 					{
 						Tile tile = o as Tile;
+						Console.WriteLine("Tile at (" + x + "," + y + ") pressed");
 						if (selected == null)
 						{
 							tile.Selected = true;
@@ -84,19 +85,19 @@ namespace SharpChess
 			// pawns
 			for (int i = 0; i < 8; i++)
 			{
-				tiles[0, i].Piece = new Pawn(players[1]);
+				tiles[1, i].Piece = new Pawn(players[1]);
 				tiles[6, i].Piece = new Pawn(players[0]);
 			}
 
 			// the rest
-			tiles[1, 0].Piece = new Rook(players[1]);
-			tiles[1, 1].Piece = new Knight(players[1]);
-			tiles[1, 2].Piece = new Bishop(players[1]);
-			tiles[1, 3].Piece = new King(players[1]);
-			tiles[1, 4].Piece = new Queen(players[1]);
-			tiles[1, 5].Piece = new Bishop(players[1]);
-			tiles[1, 6].Piece = new Knight(players[1]);
-			tiles[1, 7].Piece = new Rook(players[1]);
+			tiles[0, 0].Piece = new Rook(players[1]);
+			tiles[0, 1].Piece = new Knight(players[1]);
+			tiles[0, 2].Piece = new Bishop(players[1]);
+			tiles[0, 3].Piece = new King(players[1]);
+			tiles[0, 4].Piece = new Queen(players[1]);
+			tiles[0, 5].Piece = new Bishop(players[1]);
+			tiles[0, 6].Piece = new Knight(players[1]);
+			tiles[0, 7].Piece = new Rook(players[1]);
 
 			tiles[7, 0].Piece = new Rook(players[0]);
 			tiles[7, 1].Piece = new Knight(players[0]);
@@ -118,20 +119,28 @@ namespace SharpChess
 
 		public bool Move(int fromRow, int fromCol, int toRow, int toCol)
 		{
+			if (fromRow == toRow && fromCol == toCol)
+			{
+				Console.WriteLine("You can't make a no-move");
+				return false;
+			}
 			// If trying to move from empty tile
 			if (tiles[fromRow, fromCol].IsEmpty)
 			{
+				Console.WriteLine("Cannot move from empty tile");
 				return false;
 			}
 			ChessPiece piece = tiles[fromRow, fromCol].Piece;
 			// Check if we're trying to move a piece that is not "ours"
 			if (piece.Player != ActivePlayer)
 			{
+				Console.WriteLine("It is not your turn");
 				return false;
 			}
 			// Test if the piece can do the move
 			if (piece.CanMove(toRow - fromRow, toCol - fromCol, tiles[toRow, toCol]) == false)
 			{
+				Console.WriteLine("Illegal move for this piece");
 				return false;
 			}
 			// If there is a piece where we will move, it should die
@@ -141,9 +150,11 @@ namespace SharpChess
 			}
 			Console.WriteLine("Moving pieces");
 			// Move the piece
-			tiles[toRow, toCol].Piece = tiles[fromRow, fromCol].Piece;
+			tiles[toRow, toCol].Piece = piece;
 			// Empty previous tile
 			tiles[fromRow, fromCol].Piece = null;
+
+			piece.SendMoveEvent(this, new PieceMoveEventArgs(fromRow, fromCol, toRow, toCol));
 
 			SwitchPlayer();
 			return true; 

@@ -55,7 +55,7 @@ namespace SharpChess
 		protected override bool OnExposeEvent(Gdk.EventExpose evnt)
 		{
 
-			Console.WriteLine("Tile exposed with area " + this.Allocation);
+			//Console.WriteLine("Tile exposed with area " + this.Allocation);
 			//Console.WriteLine("WidthRequest: " + WidthRequest + " HeightRequest: " + HeightRequest);
 			Gdk.Rectangle a = evnt.Area;
 
@@ -82,12 +82,6 @@ namespace SharpChess
 			}
 
 			return base.OnExposeEvent(evnt);
-		}
-
-		protected override bool OnButtonPressEvent(Gdk.EventButton evnt)
-		{
-
-			return base.OnButtonPressEvent(evnt);
 		}
 	}
 }
