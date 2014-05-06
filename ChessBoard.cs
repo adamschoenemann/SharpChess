@@ -129,7 +129,7 @@ namespace SharpChess
 			// Move the piece
 			tiles[toRow, toCol].Piece = piece;
 			// Empty previous tile
-			tiles[fromRow, fromCol].Piece = null;
+			tiles[fromRow, fromCol].Piece = null;	
 
 			piece.SendMoveEvent(this, new PieceMoveEventArgs(fromRow, fromCol, toRow, toCol));
 			Game.OnMove();
@@ -144,11 +144,11 @@ namespace SharpChess
 			int pieces = 0;
 			if (Math.Abs(rows) == Math.Abs(cols)) // diagonal move
 			{
-				for (int r = fromRow, c = fromCol;
-					 r < toRow && c < toCol;
+				for (int r = 0, c = 0;
+					Math.Abs(r) < Math.Abs(rows) && Math.Abs(c) < Math.Abs(cols);
 					 r += Math.Sign(rows), c += Math.Sign(cols))
 				{
-					if (tiles[r, c].IsEmpty == false)
+					if (tiles[fromRow + r, fromCol + c].IsEmpty == false)
 						pieces++;
 				}
 				return (pieces <= 1);

@@ -1,32 +1,37 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="King.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChessBoard.cs">
     <Files>
-      <File FileName="Program.cs" Line="12" Column="10" />
-      <File FileName="ChessBoard.cs" Line="101" Column="24" />
-      <File FileName="Tile.cs" Line="67" Column="20" />
-      <File FileName="ChessPiece.cs" Line="24" Column="48" />
-      <File FileName="King.cs" Line="40" Column="45" />
+      <File FileName="Program.cs" Line="12" Column="15" />
+      <File FileName="ChessBoard.cs" Line="104" Column="5" />
+      <File FileName="ChessGame.cs" Line="41" Column="3" />
+      <File FileName="Tile.cs" Line="15" Column="1" />
+      <File FileName="Player.cs" Line="64" Column="21" />
+      <File FileName="ChessPiece.cs" Line="39" Column="30" />
+      <File FileName="King.cs" Line="26" Column="1" />
+      <File FileName="Bishop.cs" Line="21" Column="4" />
+      <File FileName="Rook.cs" Line="27" Column="1" />
+      <File FileName="Pawn.cs" Line="51" Column="1" />
+      <File FileName="Knight.cs" Line="17" Column="17" />
+      <File FileName="Queen.cs" Line="15" Column="4" />
+      <File FileName="MainWindow.cs" Line="29" Column="33" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="SharpChess" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="bishop-32.png" selected="True" />
-              <Node name="king-32.png" selected="True" />
-              <Node name="knight-32.png" selected="True" />
-              <Node name="pawn-32.png" selected="True" />
-              <Node name="queen-32.png" selected="True" />
-              <Node name="rook-32.png" selected="True" />
-            </Node>
+            <Node name="Assets" expanded="True" />
+            <Node name="ChessBoard.cs" selected="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Catchpoint exceptionName="System.NullReferenceException" />
+      <Breakpoint file="F:\Projects\Mono\SharpChess\ChessBoard.cs" line="142" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
